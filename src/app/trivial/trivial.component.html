@@ -1,0 +1,30 @@
+<div class="container-fluid" style="height: 70vh">
+  <div class="text-white" style="font-size: 8em">
+    {{selectedQuestion.question}}
+  </div>
+</div>
+<div class="container-fluid" style="height: 30vh">
+  <div class="row">
+    <button class="col btn btn-primary btn-answer" (click)="checkQuestion(selectedQuestion.answers[0])">{{selectedQuestion.answers[0]}}</button>
+    <button class="col btn btn-primary btn-answer ml-2" (click)="checkQuestion(selectedQuestion.answers[1])">{{selectedQuestion.answers[1]}}</button>
+  </div>
+  <div class="row mt-2">
+    <button class="col btn btn-primary btn-answer" (click)="checkQuestion(selectedQuestion.answers[2])">{{selectedQuestion.answers[2]}}</button>
+    <button class="col btn btn-primary btn-answer ml-2" (click)="checkQuestion(selectedQuestion.answers[3])">{{selectedQuestion.answers[3]}}</button>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="nextQuestionModal" tabindex="-1" role="dialog" aria-labelledby="nextQuestionModal" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="nextQuestionModalLongTitle">Answer</h5>
+      </div>
+      <div class="modal-body" id="nextQuestionModalBody">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="generateNewQuestion()">Generate new question</button>
+      </div>
+    </div>
+  </div>
+</div>
