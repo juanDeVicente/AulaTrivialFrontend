@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {TrivialService} from '../servicies/trivial/trivial.service';
 import {QuestionApi} from '../models/question.api';
 import {QuestionShuffled} from '../models/question.shuffled';
+import {ServoService} from '../servicies/servo/servo.service';
 
 declare function modalFunction(idModal, func) : any;
 
@@ -17,7 +18,7 @@ export class TrivialComponent implements OnInit
 
   selectedRandomQuestionIndex = -1;
 
-  constructor(private trivialService: TrivialService) { }
+  constructor(private trivialService: TrivialService, private servoService: ServoService) { }
 
   ngOnInit(): void
   {
@@ -46,12 +47,23 @@ export class TrivialComponent implements OnInit
     let modalTitle = '';
     let modalBody = '';
     if (this.selectedQuestion.checkCorrectAnswer(this.questions[this.selectedRandomQuestionIndex], answerText)){
-      modalTitle = 'Correct!';
-      modalBody = 'Take a reward from the box';
+      modalTitle = 'Correcto!';
+      modalBody = 'Recoge la recompensa de la caja';
+      (<HTMLInputElement>document.getElementById('generateNewQuestionButton')).disabled = true;
+      this.servoService.moveServo().subscribe(
+        next=>{
+          console.log(next);
+          (<HTMLInputElement>document.getElementById('generateNewQuestionButton')).disabled = false;
+        },
+        error => {
+          console.log(error);
+          (<HTMLInputElement>document.getElementById('generateNewQuestionButton')).disabled = false;
+        }
+      );
     }
     else {
-      modalTitle = 'Wrong';
-      modalBody = 'Try again';
+      modalTitle = 'Incorrecto';
+      modalBody = 'Inténtalo de nuevo';
     }
     document.getElementById('nextQuestionModalLongTitle').textContent = modalTitle;
     document.getElementById('nextQuestionModalBody').textContent = modalBody;

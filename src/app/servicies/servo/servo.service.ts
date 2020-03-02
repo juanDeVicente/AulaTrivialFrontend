@@ -10,6 +10,6 @@ export class ServoService {
   constructor(private http: HttpClient) { }
 
   moveServo() {
-    return this.http.get(environment.backendUrl + 'servo/');
+    return this.http.get(environment.backendUrl + 'servo');
   }
 }
